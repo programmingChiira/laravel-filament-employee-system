@@ -116,31 +116,36 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('country_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('state_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('city_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('department_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('first_name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('middle_name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('last_name')
                     ->searchable(),
+                TextColumn::make('country.name')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('state.name')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('city.name')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('department.name')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('address')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('zip_code')
                     ->searchable(),
                 TextColumn::make('date_of_birth')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('date_hired')
                     ->date()
                     ->sortable(),
