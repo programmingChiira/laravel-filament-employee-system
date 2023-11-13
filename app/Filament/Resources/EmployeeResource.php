@@ -7,8 +7,6 @@ use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\City;
 use App\Models\Employee;
 use App\Models\State;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -17,6 +15,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Notifications\Collection;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -40,7 +40,7 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('User Name')
+                Section::make('User details')
                     ->schema([
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
@@ -162,12 +162,46 @@ class EmployeeResource extends Resource
                 //
             ])
             ->actions([
-                //
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                \Filament\Infolists\Components\Section::make('Employee details')
+                    ->schema([
+                        TextEntry::make('country.name'),
+                        TextEntry::make('state.name'),
+                        TextEntry::make('city.name'),
+                        TextEntry::make('department.name'),
+                    ])->columns(2),
+
+                \Filament\Infolists\Components\Section::make('Employee name')
+                    ->schema([
+                        TextEntry::make('first_name'),
+                        TextEntry::make('middle_name'),
+                        TextEntry::make('last_name'),
+                    ])->columns(3),
+
+                \Filament\Infolists\Components\Section::make('Employee address')
+                    ->schema([
+                        TextEntry::make('address'),
+                        TextEntry::make('zip_code'),
+                    ])->columns(2),
+
+                \Filament\Infolists\Components\Section::make('Dates')
+                    ->schema([
+                        TextEntry::make('date_of_birth'),
+                        TextEntry::make('date_hired'),
+                    ])->columns(2),
             ]);
     }
 
@@ -183,8 +217,8 @@ class EmployeeResource extends Resource
         return [
             'index' => Pages\ListEmployees::route('/'),
             'create' => Pages\CreateEmployee::route('/create'),
-            'view' => Pages\ViewEmployee::route('/{record}'),
-            'edit' => Pages\EditEmployee::route('/{record}/edit'),
+            //'view' => Pages\ViewEmployee::route('/{record}'),
+            //'edit' => Pages\EditEmployee::route('/{record}/edit'),
         ];
     }
 }
