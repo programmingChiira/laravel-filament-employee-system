@@ -24,15 +24,15 @@ class ListEmployees extends ListRecords
     {
         return [
             'All' => Tab::make(),
-            'This Week' => Tab::make()
+            'Week' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('date_hired', '>=', now()->subWeek()))
                 ->badge(Employee::query()->where('date_hired', '>=', now()->subWeek())->count()),
 
-            'This Month' => Tab::make()
+            'Month' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('date_hired', '>=', now()->subMonth()))
                 ->badge(Employee::query()->where('date_hired', '>=', now()->subMonth())->count()),
 
-            'This Year' => Tab::make()
+            'Year' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('date_hired', '>=', now()->subYear()))
                 ->badge(Employee::query()->where('date_hired', '>=', now()->subYear())->count()),
         ];
