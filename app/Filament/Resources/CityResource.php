@@ -28,6 +28,10 @@ class CityResource extends Resource
     protected static ?string $slug = 'cities';
     protected static ?int $navigationSort = 3;
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
