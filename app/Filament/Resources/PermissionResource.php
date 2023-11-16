@@ -30,9 +30,10 @@ class PermissionResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Permissions')
+                Section::make('Permission details')
                     ->schema([
                         TextInput::make('name')
+                            ->label('Permission title')
                             ->minLength(2)
                             ->maxLength(255)
                             ->required()
