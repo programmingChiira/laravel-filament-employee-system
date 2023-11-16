@@ -26,10 +26,16 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->login()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
             ->font("Quicksand")
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Zinc,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
+            ->favicon(asset('favicon.png'))
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([

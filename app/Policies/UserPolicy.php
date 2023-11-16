@@ -12,7 +12,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole(["Admin", "Employee"]);
+        return $user->hasRole(["Admin"]);
     }
 
     /**

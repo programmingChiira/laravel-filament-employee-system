@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\App\Widgets;
 
 use App\Models\Employee;
 use App\Models\User;
@@ -9,7 +9,6 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsAdminOverview extends BaseWidget
 {
-    
     protected function getStats(): array
     {
         return [
