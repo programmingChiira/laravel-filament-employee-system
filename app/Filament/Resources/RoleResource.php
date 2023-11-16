@@ -32,9 +32,10 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Roles')
+                Section::make('Roles details')
                     ->schema([
                         TextInput::make('name')
+                            ->label('Role title')
                             ->minLength(2)
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
