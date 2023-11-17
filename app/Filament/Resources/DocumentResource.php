@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\Text;
+use Filament\Tables\Columns\File;
 use Filament\Tables\Columns;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables;
@@ -22,7 +23,18 @@ class DocumentResource extends Resource
 {
     protected static ?string $model = Document::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    protected static ?string $navigationLabel = 'Document';
+    protected static ?string $modelLabel = 'Document';
+    protected static ?string $navigationGroup = 'File management';
+    protected static ?string $slug = 'documents';
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -47,7 +59,9 @@ class DocumentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('created_at'),
+                TextColumn::make('name')
+                    ->badge()
+                    ->separator(','),
             ])
             ->filters([
                 //
