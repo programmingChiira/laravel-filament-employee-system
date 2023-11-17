@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ImageResource\Pages;
+namespace App\Filament\Resources\DocumentResource\Pages;
 
-use App\Filament\Resources\ImageResource;
+use App\Filament\Resources\DocumentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewImage extends ViewRecord
+class ViewDocument extends ViewRecord
 {
-    protected static string $resource = ImageResource::class;
+    protected static string $resource = DocumentResource::class;
 
     protected function getHeaderActions(): array
     {

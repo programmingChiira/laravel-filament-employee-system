@@ -2,26 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageResource\Pages;
-use App\Filament\Resources\ImageResource\RelationManagers;
-use App\Models\Image;
+use App\Filament\Resources\DocumentResource\Pages;
+use App\Filament\Resources\DocumentResource\RelationManagers;
+use App\Models\Document;
 use Filament\Forms;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Avatar;
-use Filament\Tables\Columns;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\Text;
+use Filament\Tables\Columns;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ImageResource extends Resource
+class DocumentResource extends Resource
 {
-    protected static ?string $model = Image::class;
+    protected static ?string $model = Document::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,27 +28,17 @@ class ImageResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Image upload')
+                Section::make('Document upload')
                     ->schema([
                         FileUpload::make('name')
-                            ->image()
                             ->multiple()
-                            ->imageEditor()
-                            ->image()
                             ->reorderable()
                             ->appendFiles()
                             ->openable()
                             ->downloadable()
-                            ->imageEditorEmptyFillColor('#000000')
-                            ->imageEditorAspectRatios([
-                                null,
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ])
                             ->visibility('public')
-                            ->acceptedFileTypes(['image/*'])
-                            ->directory('/images'),
+                            ->acceptedFileTypes(['application/pdf', 'application/msword'])
+                            ->directory('/documents'),
                     ])->columns(1),
             ]);
     }
@@ -58,12 +47,7 @@ class ImageResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('name')
-                    ->circular()
-                    ->stacked()
-                    ->limit(3)
-                    ->limitedRemainingText()
-                    ->extraImgAttributes(['loading' => 'lazy']),
+                TextColumn::make('created_at'),
             ])
             ->filters([
                 //
@@ -89,10 +73,10 @@ class ImageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListImages::route('/'),
-            'create' => Pages\CreateImage::route('/create'),
-            'view' => Pages\ViewImage::route('/{record}'),
-            'edit' => Pages\EditImage::route('/{record}/edit'),
+            'index' => Pages\ListDocuments::route('/'),
+            'create' => Pages\CreateDocument::route('/create'),
+            'view' => Pages\ViewDocument::route('/{record}'),
+            'edit' => Pages\EditDocument::route('/{record}/edit'),
         ];
     }
 }
