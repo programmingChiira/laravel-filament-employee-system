@@ -18,9 +18,6 @@ class StatsAdminOverview extends BaseWidget
             Stat::make('Bounce rate', '21%')
                 ->description('7% increase')
                 ->color('danger'),
-            Stat::make('Employees', Employee::query()->count())
-                ->description('Employee count')
-                ->color('success'),
         ];
     }
 }
