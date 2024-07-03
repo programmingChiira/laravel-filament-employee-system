@@ -43,10 +43,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font("Quicksand")
             ->navigationGroups([
-                'Employee management',
-                'System management',
-                'File management',
-                'User management',
+                'PRODUCT MANAGEMENT',
+                'ROLES & MANAGEMENT',
+                'USER MANAGEMENT',
             ])
             ->favicon(asset('favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

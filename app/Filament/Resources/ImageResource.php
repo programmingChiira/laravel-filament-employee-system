@@ -6,6 +6,7 @@ use App\Filament\Resources\ImageResource\Pages;
 use App\Filament\Resources\ImageResource\RelationManagers;
 use App\Models\Image;
 use Filament\Forms;
+use Filament\Support\Enums\ActionSize;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\FileUpload;
@@ -14,6 +15,7 @@ use Filament\Tables\Columns;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +29,7 @@ class ImageResource extends Resource
 
     protected static ?string $navigationLabel = 'Image';
     protected static ?string $modelLabel = 'Image';
-    protected static ?string $navigationGroup = 'File management';
+    protected static ?string $navigationGroup = 'PRODUCT MANAGEMENT';
     protected static ?string $slug = 'images';
     protected static ?int $navigationSort = 1;
 
@@ -80,14 +82,27 @@ class ImageResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->slideOver(),
+                    Tables\Actions\EditAction::make()
+                        ->slideOver(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->label('Actions')
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->size(ActionSize::Small)
+                    ->color('primary')
+                    ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array
@@ -102,8 +117,8 @@ class ImageResource extends Resource
         return [
             'index' => Pages\ListImages::route('/'),
             'create' => Pages\CreateImage::route('/create'),
-            'view' => Pages\ViewImage::route('/{record}'),
-            'edit' => Pages\EditImage::route('/{record}/edit'),
+            // 'view' => Pages\ViewImage::route('/{record}'),
+            // 'edit' => Pages\EditImage::route('/{record}/edit'),
         ];
     }
 }
