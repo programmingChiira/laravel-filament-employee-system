@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateImage extends CreateRecord
 {
     protected static string $resource = ImageResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
+    }
 }
