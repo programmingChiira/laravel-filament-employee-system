@@ -97,7 +97,7 @@ class PermissionResource extends Resource
         return [
             'index' => Pages\ListPermissions::route('/'),
             'create' => Pages\CreatePermission::route('/create'),
-            'edit' => Pages\EditPermission::route('/{record}/edit'),
+            // 'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
     }
 }
