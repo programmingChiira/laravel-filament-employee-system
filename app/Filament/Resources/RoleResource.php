@@ -57,8 +57,9 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('name'),
+                // TextColumn::make('id')->sortable(),
+                TextColumn::make('name')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime('d-M-Y')->sortable(),
             ])
@@ -103,7 +104,7 @@ class RoleResource extends Resource
             'create' => Pages\CreateRole::route('/create'),
             // 'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
-    } 
+    }
 
     public static function getEloquentQuery(): Builder
     {

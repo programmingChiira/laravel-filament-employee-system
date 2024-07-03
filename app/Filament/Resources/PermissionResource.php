@@ -32,7 +32,7 @@ class PermissionResource extends Resource
     {
         return static::getModel()::count();
     }
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -53,14 +53,16 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('name'),
+                // TextColumn::make('id')->sortable(),
+                TextColumn::make('name')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime('d-M-Y')->sortable(),
             ])
             ->filters([
                 //
-            ])
+            ])                // TextColumn::make('id')->sortable(),
+
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\ViewAction::make()
